@@ -22,7 +22,7 @@ create table municipio
 	poblacion2001 integer(7),
 	poblacion1996 integer(7),
 	poblacion1991 integer(7),
-	superficie integer,
+	superficie DECIMAL(20,2),
 	ca_id integer(2),
 
 	PRIMARY KEY(m_id),

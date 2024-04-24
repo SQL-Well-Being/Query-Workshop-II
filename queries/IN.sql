@@ -17,6 +17,6 @@ SELECT * FROM comunidad
 
 -- Punto 4 --
 SELECT DISTINCT comunidad.ca_id, comunidad.nom FROM 
-	(SELECT ca_id, nom FROM municipio
+	(SELECT ca_id FROM municipio
 	WHERE LOWER(nom) LIKE '%x') AS tab1
     INNER JOIN comunidad ON tab1.ca_id = comunidad.ca_id;

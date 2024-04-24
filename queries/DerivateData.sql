@@ -7,7 +7,7 @@ INSERT INTO comunitat2 (SELECT * FROM comunidad);
 ALTER TABLE comunitat2 ADD COLUMN poblacion INT;
 
 -- b --
-ALTER TABLE comunitat2 ADD COLUMN superficie INT;
+ALTER TABLE comunitat2 ADD COLUMN superficie DECIMAL(10,2);
 
 -- c --
 UPDATE 
@@ -20,9 +20,7 @@ WHERE comunitat2.ca_id = tab1.ca_id;
 -- d --
 UPDATE 
 	comunitat2
-    INNER JOIN (SELECT ca_id, SUM(superficie) AS 'superficie' FROM municipio GROUP BY ca_id) AS tab1 ON comunitat2.ca_id = tab1.ca_id
+    INNER JOIN (SELECT ca_id, ROUND(SUM(superficie),2) AS 'superficie' FROM municipio GROUP BY ca_id) AS tab1 ON comunitat2.ca_id = tab1.ca_id
 SET
 	comunitat2.superficie = tab1.superficie
 WHERE comunitat2.ca_id = tab1.ca_id;
-
-SELECT * FROM comunitat2;
