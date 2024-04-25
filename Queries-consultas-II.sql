@@ -40,23 +40,7 @@ SELECT comunidad.nom, SUM(municipio.poblacion2003) / SUM(municipio.superficie) A
 
 -- Punto 1
 DROP TABLE IF EXISTS municipio2;
-create table municipio2
-(
-	m_id integer(4),
-	nom varchar(70),
-	poblacion2003 integer(7),
-	poblacion2001 integer(7),
-	poblacion1996 integer(7),
-	poblacion1991 integer(7),
-	superficie DECIMAL(20,2),
-	ca_id integer(2),
-
-	PRIMARY KEY(m_id),
-	CONSTRAINT fk_municipio2_comunidad
-		FOREIGN KEY (ca_id)
-		REFERENCES comunidad(ca_id)
-);
-
+CREATE TABLE municipio2 LIKE municipio;
 INSERT INTO municipio2 (m_id, nom, poblacion2003, poblacion2001, poblacion1996, poblacion1991, superficie, ca_id)
 (
 	SELECT m_id, nom, poblacion2003, poblacion2001, poblacion1996, poblacion1991, superficie, ca_id FROM municipio
@@ -69,23 +53,7 @@ UPDATE municipio2 SET municipio2.poblacion2003 = municipio2.poblacion2003 / 2 WH
 
 -- Punto 4
 DROP TABLE IF EXISTS municipio_ca;
-create table municipio_ca
-(
-	m_id integer(4),
-	nom varchar(70),
-	poblacion2003 integer(7),
-	poblacion2001 integer(7),
-	poblacion1996 integer(7),
-	poblacion1991 integer(7),
-	superficie DECIMAL(20,2),
-	ca_id integer(2),
-
-	PRIMARY KEY(m_id),
-	CONSTRAINT fk_municipio_ca_comunidad
-		FOREIGN KEY (ca_id)
-		REFERENCES comunidad(ca_id)
-);
-
+CREATE TABLE municipio_ca LIKE municipio;
 INSERT INTO municipio_ca (m_id, nom, poblacion2003, poblacion2001, poblacion1996, poblacion1991, superficie, ca_id)
 (
 	SELECT m_id, municipio.nom, poblacion2003, poblacion2001, poblacion1996, poblacion1991, superficie, municipio.ca_id
@@ -126,7 +94,7 @@ UPDATE
     INNER JOIN (SELECT ca_id, SUM(poblacion2003) AS 'poblacion' FROM municipio GROUP BY ca_id) AS tab1 ON comunitat2.ca_id = tab1.ca_id
 SET
 	comunitat2.poblacion = tab1.poblacion
-WHERE comunitat2.ca_id = tab1.ca_id;
+WHERE comunitat2.ca_id = tab1.ca_id AND comunitat2.ca_id > 0 AND tab1.ca_id > 0;
 
 -- d --
 UPDATE 
@@ -134,5 +102,4 @@ UPDATE
     INNER JOIN (SELECT ca_id, ROUND(SUM(superficie),2) AS 'superficie' FROM municipio GROUP BY ca_id) AS tab1 ON comunitat2.ca_id = tab1.ca_id
 SET
 	comunitat2.superficie = tab1.superficie
-WHERE comunitat2.ca_id = tab1.ca_id;
-
+WHERE comunitat2.ca_id = tab1.ca_id AND comunitat2.ca_id > 0 AND tab1.ca_id > 0;

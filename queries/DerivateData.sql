@@ -16,7 +16,7 @@ UPDATE
     INNER JOIN (SELECT ca_id, SUM(poblacion2003) AS 'poblacion' FROM municipio GROUP BY ca_id) AS tab1 ON comunitat2.ca_id = tab1.ca_id
 SET
 	comunitat2.poblacion = tab1.poblacion
-WHERE comunitat2.ca_id = tab1.ca_id;
+WHERE comunitat2.ca_id = tab1.ca_id AND comunitat2.ca_id > 0 AND tab1.ca_id > 0;
 
 -- d --
 UPDATE 
@@ -24,4 +24,4 @@ UPDATE
     INNER JOIN (SELECT ca_id, ROUND(SUM(superficie),2) AS 'superficie' FROM municipio GROUP BY ca_id) AS tab1 ON comunitat2.ca_id = tab1.ca_id
 SET
 	comunitat2.superficie = tab1.superficie
-WHERE comunitat2.ca_id = tab1.ca_id;
+WHERE comunitat2.ca_id = tab1.ca_id AND comunitat2.ca_id > 0 AND tab1.ca_id > 0;
