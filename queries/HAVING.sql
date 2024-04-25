@@ -1,4 +1,5 @@
 USE municipios;
+-- HAVING SECTION
 
 -- Punto 1 --
 SELECT comunidad.nom, COUNT(comunidad.nom) FROM comunidad INNER JOIN municipio ON comunidad.ca_id = municipio.ca_id GROUP BY comunidad.nom HAVING COUNT(comunidad.nom) > 1000;

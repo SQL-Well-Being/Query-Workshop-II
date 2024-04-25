@@ -2,7 +2,6 @@ CREATE SCHEMA IF NOT EXISTS municipios DEFAULT CHARACTER SET utf8 COLLATE utf8_s
 
 USE municipios;
 
-
 DROP TABLE IF EXISTS municipio;
 DROP TABLE IF EXISTS comunidad;
 

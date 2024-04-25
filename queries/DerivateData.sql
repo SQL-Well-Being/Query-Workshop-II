@@ -1,4 +1,5 @@
 -- SQL Derivate Data --
+
 DROP TABLE IF EXISTS comunitat2;
 CREATE TABLE comunitat2 LIKE comunidad;
 INSERT INTO comunitat2 (SELECT * FROM comunidad);

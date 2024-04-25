@@ -1,5 +1,6 @@
 USE municipios;
 -- UPDATE SECTION
+
 -- Punto 1
 DROP TABLE IF EXISTS municipio2;
 create table municipio2
